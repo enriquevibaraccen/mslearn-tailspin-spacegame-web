@@ -81,13 +81,9 @@ stages:
           steps:
           - download: current
             artifact: drop
-          - task: AzureRmWebAppDeployment@4
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy: website'
             inputs:
-              ConnectionType: 'AzureRM'
-              azureSubscription: 'Visual Studio Enterprise Subscription(6b1b7c11-4d3a-4fd0-a478-4c9703947535)'
-              appType: 'webApp'
-              WebAppName: 'oui'
-              deployToSlotOrASE: true
-              ResourceGroupName: 'oui_group'
-              SlotName: 'production'
-              packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+              azureSubscription: 'Resource Manager - Tailspin - Space Game'
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
